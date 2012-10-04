@@ -73,6 +73,7 @@ $token = $prepare_resp['upload']['token'];
             - If you do not send the user to a different page, you must refresh the uploadtoken since it can only be used once
           **/
           alert(msg);
+          location.reload(true);
         });
       }
       
