@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Examples
 
 The master branch of this repository is only holding the readme file that you are currently reading. If you'd like to [download all](https://github.com/viddler/Examples/zipball/all) the examples please checkout the `all` branch, otherwise simple checkout the branch you would like to download or switch to that branch then download.
