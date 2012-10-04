@@ -5,3 +5,5 @@ Two files that will show an example of upload a file directly from your site to 
 This example can be found in the `all` branch as well as the `upload-progress` branch if you only want to grab this example.
 
 You will need to have a Viddler API key and update the the `index.php` page with your Viddler username and password to run this example.
+
+To read the published article about this example, please click [here](http://blog.viddler.com/cdevroe/direct-upload-api/).
