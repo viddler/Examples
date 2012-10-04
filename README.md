@@ -11,6 +11,7 @@ The `master` branch of this repository is only holding the readme file that you 
 
 This is a package of all the examples listed below.
 
+***
 
 ### Direct Upload with Progress Bar | [Download](https://github.com/viddler/Examples/zipball/upload-progress)
 
