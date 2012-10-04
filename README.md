@@ -7,7 +7,7 @@ The `master` branch of this repository is only holding the readme file that you 
 
 ***
 
-### All Examples | [Download](https://github.com/viddler/Examples/zipball/all)
+### All Examples | Download
 
 This is a package of all the examples listed below.
 
