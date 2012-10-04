@@ -12,7 +12,7 @@ The `master` branch of this repository is only holding the readme file that you 
 This is a package of all the examples listed below.
 
 
-### Direct Upload with Progress Bar | Download
+### Direct Upload with Progress Bar | [Download](https://github.com/viddler/Examples/zipball/upload-progress)
 
 A collection of files that will extend the direct upload form by submitting the form to an iframe in order to allow you to use AJAX in order to build a proper progress bar.
 
