@@ -1,5 +1,4 @@
 # Examples
-
 The master branch of this repository is only holding the readme file that you are currently reading. If you'd like to [download all](https://github.com/viddler/Examples/zipball/all) the examples please checkout the `all` branch, otherwise simple checkout the branch you would like to download or switch to that branch then download.
 
 ***
@@ -39,3 +38,13 @@ This example can be found in the `all` branch as well as the `upload-progress` b
 You will need to have a Viddler API key and update the the `progress.php` and `index.php` page with your Viddler username and password to run this example.
 
 You can view the working example [here](http://public.supportserver.viddler.com/upload-progress/).
+
+***
+
+### Thumbnails | [Download](https://github.com/viddler/Examples/zipball/thumbnails)
+
+* multiple.php : How to extract all the thumbnails associated to a particular video ID
+
+This example can be found in the `all` branch as well as the `thumbnails` branch if you only want to grab this example.
+
+To read the published article about this example, please click [here](http://blog.viddler.com/phpfunk/multiple-thumbnails/).
