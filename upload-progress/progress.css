@@ -1,0 +1,12 @@
+body, html { font-family: "Helvetica", Arial, sans-serif; font-size: 14px; color: #000; background-color: #fff; margin: 10px; padding: 10px; }
+h1 { font-size: 30px; letter-spacing: -1px; font-weight: normal; }
+p { margin: 10px 0px 10px 0px; }
+label { width: 135px; float: left; }
+textarea { width: 228px; height: 200px; }
+small { color: #ccc; }
+
+div#container { margin: 0 auto; width: 500px; border: 2px solid #e1e1e1; padding: 10px; }
+#container { width: 95%; margin-top: 15px; clear: both; }
+#progress-container { width: 100%; display: none; }
+#progress-bar { width: 5%; background-color: #ccc; color: #000; text-align: right; padding: 3px; }
+#upload-iframe { display: none; }
