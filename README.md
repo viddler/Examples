@@ -1,7 +1,5 @@
 # Examples
 
-A collection of scripts and examples that will help you in your journey using Viddler's API. Most of the examples below require API access. If you do not have access to Viddler's API please give us a call at 1-888-444-1119 to discuss.
-
 The master branch of this repository is only holding the readme file that you are currently reading. If you'd like to download all the examples please checkout the all branch, otherwise simple checkout the branch you would like to download or switch to that branch then download.
 
 ***
@@ -19,6 +17,16 @@ Two files that will show an example of upload a file directly from your site to 
 This example can be found in the `all` branch as well as the `direct-upload` branch if you only want to grab this example.
 
 To read the published article about this example, please click [here](http://blog.viddler.com/cdevroe/direct-upload-api/).
+
+***
+
+### Direct Upload using cURL | [Download](https://github.com/viddler/Examples/zipball/direct-upload-curl)
+
+This is a simple example of how you can still transmit files to viddler from server to server instead of directly from consumer to our servers. If you like to upload the files to your server first, you still can. The file included in this example will allow you to upload that file to us using cURL and mimicking submitting a traditional HTML form.
+
+This example can be found in the `all` branch as well as the `direct-upload-curl` branch if you only want to grab this example.
+
+To read the published article about this example, please click [here](http://blog.viddler.com/phpfunk/direct-upload-using-curl/).
 
 ***
 
