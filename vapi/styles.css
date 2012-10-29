@@ -1,0 +1,17 @@
+html, body, h1, h2, textarea { font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: black; }
+h1, h2 { margin: 0px; letter-spacing: -1px; font-weight: normal; font-size: 22px; }
+h2 { font-size: 18px; }
+p { margin: 0; margin-bottom: 10px; }
+div { float: left; margin-right: 15px; }
+
+#controls { display: none; clear: both; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ccc; width: 750px; }
+textarea { width: 98%; padding: 2%; height: 125px; }
+    
+#explain { margin-top: 10px; padding-top: 10px; border-top: 1px solid #ccc; }
+#explain p { display: block; }
+
+.hide { display: none; }
+
+#nav { width: 98%; padding: 10px; margin-bottom: 10px; color: #666; background-color: #e1e1e1; }
+a, a:link, a:visited { color: #666; }
+a:hover { color: #000; }
