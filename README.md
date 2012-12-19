@@ -35,3 +35,7 @@ You can view the working example [here](http://public.supportserver.viddler.com/
 * multiple.php : How to extract all the thumbnails associated to a particular video ID
 
 To read the published article about this example, please click [here](http://blog.viddler.com/phpfunk/multiple-thumbnails/).
+
+### VAPI
+
+Multiple files that will show you working examples for different embed codes using our vapi.js library. Please click [here](http://developers.viddler.com/documentation/chromeless/) for documentation.
