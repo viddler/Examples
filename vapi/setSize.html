@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <title>setSize :: VAPI Library</title>
+  <link href="styles.css" media="screen" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdn.static.alpha.viddler.com/js/vapi.js"></script>
+  <script type="text/javascript">
+  
+    /**
+    Since for example purposes we are showing each embed type
+    we are declaring an object with the embed type and player ID.
+    We did this to cut back on code, now we can just loop through
+    players and attach events
+    **/
+    var embeds = {
+      'iframe'    : 'viddler-4c57d97a',
+      'legacy'    : 'viddler_viddler_160',
+      'fallback'  : 'viddlerOuter-4c57d97a'
+    };
+    
+    var dimensions = {
+      'width'   : 247,
+      'height'  : 139,
+      'bar'     : 20,
+      'ratio'   : 1.77
+    };
+    
+    var current_width = dimensions.width;
+    var direction     = 'in';
+    var timer         = -1;
+    
+    function animate(width)
+    {
+      var height = parseInt(width / dimensions.ratio, 10);
+      Viddler(embeds.iframe).setSize(width, height);
+    }
+    
+    //When the document is ready, do what is inside this block
+    $('document').ready(function()
+    {
+    
+      /**
+      Loop through each embed and attach 'onReady' event
+      When ready, show button
+      **/
+      for (var i in embeds) {
+        var player = Viddler(embeds[i]);
+        player.onReady(function()
+        {
+          $('#' + find_embed(this.playerId) + ' p').fadeIn('medium');
+        });
+      }
+      
+      /**
+      Attach click events to each button
+      When clicked:
+        - get button object
+        - get method to call (found in button value)
+        - get the embed id (iframe, legacy or fallback) from button's parent's parent object
+        - set the starting width to 0
+        - set the starting height to 0
+        - figure the dimensions for small, medium and large
+        - setSize on current player object
+      **/
+      $('input').click(function()
+      {
+        var obj     = $(this);
+        var size    = obj.val().toLowerCase();
+        var embed   = obj.parent().parent().attr('id');
+        var width   = 0;
+        var height  = 0;
+        
+        if (size == 'small') {
+          width = dimensions.width;
+          height = dimensions.height;
+        }
+        else if (size == 'medium') {
+          width = dimensions.width * 2;
+        }
+        else {
+          width = dimensions.width * 3;
+        }
+      
+        height = (height < 1) ? parseInt(width / dimensions.ratio, 10) : height;
+        Viddler(embeds[embed]).setSize(width, height); 
+
+      });
+      
+      $('#animate').click(function()
+      { 
+        $(this).fadeOut();
+        var player = Viddler(embeds.iframe);
+        player.pauseVideo();
+
+        timer = setInterval(function()
+        {
+          if (current_width < 1000 && direction == 'in') {
+            direction = 'in';
+            current_width = parseInt(current_width, 10) + 10;
+          }
+          else {
+            direction = 'out';
+            current_width = parseInt(current_width, 10) - 10;
+          }
+          
+          if (current_width < dimensions.width) {
+            clearInterval(timer);
+            $('#animate').fadeIn();
+            direction = 'in';
+            player.playVideo();
+          }
+          else {
+            var height = parseInt(current_width / dimensions.ratio, 10);
+            player.setSize(current_width, height)
+          }
+        }, 10);
+        return false;
+      });
+
+    });
+  </script>
+  </head>
+  
+  <body>
+  
+    <div id="nav">
+      <a href="index.html">All Examples</a> | 
+      <a href="playPauseStop.html">Play, Pause & Stop</a> | 
+      <a href="seekTo.html">Seeking</a> | 
+      <a href="volume.html">Volume</a> | 
+      <a href="cueLoad.html">Cue & Load</a> | 
+      <a href="setSize.html">Sizes</a> | 
+      <a href="status.html">Video Status</a> | 
+      <a href="info.html">Video Info</a> | 
+      <a href="http://developers.viddler.com/documentation/chromeless/" target="_blank">Documentation</a>
+    </div>
+  
+    <!-- iframe -->
+    <div id="iframe">
+      <h1>iframe</h1>
+      <iframe id="viddler-4c57d97a" src="//www.viddler.com/embed/4c57d97a/?f=1&player=simple&secret=34213636&enablejsapi=1" width="247" height="159" frameborder="0" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+      <p>
+        <input type="button" value="Small" />
+        <input type="button" value="Medium" />
+        <input type="button" value="Large" />
+      </p>
+    
+    </div>
+    
+    <!-- legacy -->
+    <div id="legacy">
+      <h1>Legacy</h1>
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="247" height="159" id="viddler_viddler_160">
+        <param name="movie" value="//www.viddler.com/simple/4c57d97a/"/>
+        <param name="allowScriptAccess" value="always"/>
+        <param name="allowNetworking" value="all"/>
+        <param name="allowFullScreen"value="true"/>
+        <param name="flashVars" value="f=1&openURL=34213636&enablecallbacks=t&enablejsapi=t&playerapiid=viddler_viddler_160"/>
+        <embed src="//www.viddler.com/simple/4c57d97a/" width="247" height="159" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" allowNetworking="all" name="viddler_viddler_160" flashVars="f=1&openURL=34213636&enablecallbacks=t&enablejsapi=t&playerapiid=viddler_viddler_160">
+        </embed>
+      </object>
+      <p>
+        <input type="button" value="Small" />
+        <input type="button" value="Medium" />
+        <input type="button" value="Large" />
+      </p>
+    </div>
+    
+    <!-- html5 fallback -->
+    <div id="fallback">
+      <h1>HTML5 Fallback</h1>
+      <!--[if IE]><object width="247" height="159" id="viddlerOuter-4c57d97a" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="//www.viddler.com/simple/4c57d97a/"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="allowFullScreen" value="true"><param name="flashVars" value="f=1&openURL=34213636&autoplay=f&loop=0&nologo=0&hd=0&enablecallbacks=1&enablejsapi=1"><object id="viddlerInner-4c57d97a"><video id="viddlerVideo-4c57d97a" src="//www.viddler.com/file/4c57d97a/html5mobile?openURL=34213636" type="video/mp4" width="247" height="139" poster="//www.viddler.com/thumbnail/4c57d97a/" controls="controls" x-webkit-airplay="allow"></video></object></object><![endif]--> <!--[if !IE]> <!--> <object width="247" height="159" id="viddlerOuter-4c57d97a" type="application/x-shockwave-flash" data="//www.viddler.com/simple/4c57d97a/"> <param name="movie" value="//www.viddler.com/simple/4c57d97a/"> <param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="allowFullScreen" value="true"><param name="flashVars" value="f=1&openURL=34213636&autoplay=f&loop=0&nologo=0&hd=0&enablecallbacks=1&enablejsapi=1&playerapiid=viddlerOuter-4c57d97a"><object id="viddlerInner-4c57d97a"> <video id="viddlerVideo-4c57d97a" src="//www.viddler.com/file/4c57d97a/html5mobile?openURL=34213636" type="video/mp4" width="247" height="139" poster="//www.viddler.com/thumbnail/4c57d97a/" controls="controls" x-webkit-airplay="allow"></video> </object></object> <!--<![endif]-->
+      <p>
+        <input type="button" value="Small" />
+        <input type="button" value="Medium" />
+        <input type="button" value="Large" />
+      </p>
+    </div>
+    
+    <div id="explain">
+      <h1>What's going on here?</h1>
+      <p>In this example, after each player loads and is ready, we show a button to seek to 30 seconds and start playing. We trapped each button event (click) so we can figure out the correct dimensions for small, medium and large. The actual embed size does not change just the video size inside of the embed.</p>
+      
+      <p>Want to see a silly example? Using a setInterval call and some simple mathematics and logic you can create an easy zoom in/out feature. Go ahead and press play on the iframe embed, wait about 5 seconds and click this <a href="#" id="animate">link</a> to get the full effect. It will pause the video, zoom in to about 1000 pixels wide, then zoom back out and start the video again.</p>
+      
+      <p>You could create a nice application to pause the video and zoom into the video if need be.</p>
+    </div>
+  
+  </body>
+</html>

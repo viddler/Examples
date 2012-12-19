@@ -1,0 +1,144 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <title>Video Info :: VAPI Library</title>
+  <link href="styles.css" media="screen" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdn.static.alpha.viddler.com/js/vapi.js"></script>
+  <script type="text/javascript">
+  
+    /**
+    Since for example purposes we are showing each embed type
+    we are declaring an object with the embed type and player ID.
+    We did this to cut back on code, now we can just loop through
+    players and attach events
+    **/
+    var embeds = {
+      'iframe'    : 'viddler-4c57d97a',
+      'legacy'    : 'viddler_viddler_160',
+      'fallback'  : 'viddlerOuter-4c57d97a'
+    };
+    
+    /**
+    Method to simply extract embed type from player ID
+    **/
+    function find_embed(pid)
+    {
+      for (var i in embeds) {
+        if (embeds[i] == pid) {
+          return i;
+        }
+      }
+    }
+    
+    //When the document is ready, do what is inside this block
+    $('document').ready(function()
+    {
+    
+      /**
+      Loop through each embed and attach 'onReady' event
+      When ready, show button
+      **/
+      for (var i in embeds) {
+        var player = Viddler(embeds[i]);
+        player.onReady(function()
+        {
+          $('#' + find_embed(this.playerId) + ' p').fadeIn('medium');
+        });
+      }
+    
+      /**
+      Attach click events to each button
+      When clicked:
+        - get button object
+        - get method to call (found in button value)
+        - get the embed id (iframe, legacy or fallback) from button's parent's parent object
+        - set the correct callback, iframe = function, legacy/fallback = fn.toString()
+        - call the correct method
+      **/
+      $('input').click(function()
+      {
+        var obj     = $(this);
+        var method  = obj.val();
+        var embed   = obj.parent().parent().attr('id');
+        var cb      = function(data){ alert(data); };
+        cb          = (embed != 'iframe') ? cb.toString() : cb;
+        Viddler(embeds[embed])[method](cb);
+      });
+
+    });
+  </script>
+  </head>
+  
+  <body>
+  
+    <div id="nav">
+      <a href="index.html">All Examples</a> | 
+      <a href="playPauseStop.html">Play, Pause & Stop</a> | 
+      <a href="seekTo.html">Seeking</a> | 
+      <a href="volume.html">Volume</a> | 
+      <a href="cueLoad.html">Cue & Load</a> | 
+      <a href="setSize.html">Sizes</a> | 
+      <a href="status.html">Video Status</a> | 
+      <a href="info.html">Video Info</a> | 
+      <a href="http://developers.viddler.com/documentation/chromeless/" target="_blank">Documentation</a>
+    </div>
+  
+    <!-- iframe -->
+    <div id="iframe">
+      <h1>iframe</h1>
+      <iframe id="viddler-4c57d97a" src="//www.viddler.com/embed/4c57d97a/?f=1&player=simple&secret=34213636&enablejsapi=1" width="247" height="159" frameborder="0" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+      <p class="hide">
+        <input type="button" value="getVideoKey" />
+        <input type="button" value="getDuration" />
+      <p class="hide">
+        <input type="button" value="getVideoUrl" />
+        <input type="button" value="getVideoEmbedCode" />
+      </p>
+    </div>
+    
+    <!-- legacy -->
+    <div id="legacy">
+      <h1>Legacy</h1>
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="247" height="159" id="viddler_viddler_160">
+        <param name="movie" value="//www.viddler.com/simple/4c57d97a/"/>
+        <param name="allowScriptAccess" value="always"/>
+        <param name="allowNetworking" value="all"/>
+        <param name="allowFullScreen"value="true"/>
+        <param name="flashVars" value="f=1&openURL=34213636&enablecallbacks=t&enablejsapi=t&playerapiid=viddler_viddler_160"/>
+        <embed src="//www.viddler.com/simple/4c57d97a/" width="247" height="159" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" allowNetworking="all" name="viddler_viddler_160" flashVars="f=1&openURL=34213636&enablecallbacks=t&enablejsapi=t&playerapiid=viddler_viddler_160">
+        </embed>
+      </object>
+      <p class="hide">
+        <input type="button" value="getVideoKey" />
+        <input type="button" value="getDuration" />
+      <p class="hide">
+        <input type="button" value="getVideoUrl" />
+        <input type="button" value="getVideoEmbedCode" />
+      </p>
+    </div>
+    
+    <!-- html5 fallback -->
+    <div id="fallback">
+      <h1>HTML5 Fallback</h1>
+      <!--[if IE]><object width="247" height="159" id="viddlerOuter-4c57d97a" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param name="movie" value="//www.viddler.com/simple/4c57d97a/"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="allowFullScreen" value="true"><param name="flashVars" value="f=1&openURL=34213636&autoplay=f&loop=0&nologo=0&hd=0&enablecallbacks=1&enablejsapi=1"><object id="viddlerInner-4c57d97a"><video id="viddlerVideo-4c57d97a" src="//www.viddler.com/file/4c57d97a/html5mobile?openURL=34213636" type="video/mp4" width="247" height="139" poster="//www.viddler.com/thumbnail/4c57d97a/" controls="controls" x-webkit-airplay="allow"></video></object></object><![endif]--> <!--[if !IE]> <!--> <object width="247" height="159" id="viddlerOuter-4c57d97a" type="application/x-shockwave-flash" data="//www.viddler.com/simple/4c57d97a/"> <param name="movie" value="//www.viddler.com/simple/4c57d97a/"> <param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="allowFullScreen" value="true"><param name="flashVars" value="f=1&openURL=34213636&autoplay=f&loop=0&nologo=0&hd=0&enablecallbacks=1&enablejsapi=1&playerapiid=viddlerOuter-4c57d97a"><object id="viddlerInner-4c57d97a"> <video id="viddlerVideo-4c57d97a" src="//www.viddler.com/file/4c57d97a/html5mobile?openURL=34213636" type="video/mp4" width="247" height="139" poster="//www.viddler.com/thumbnail/4c57d97a/" controls="controls" x-webkit-airplay="allow"></video> </object></object> <!--<![endif]-->
+      <p class="hide">
+        <input type="button" value="getVideoKey" />
+        <input type="button" value="getDuration" />
+      <p class="hide">
+        <input type="button" value="getVideoUrl" />
+        <input type="button" value="getVideoEmbedCode" />
+      </p>
+    </div>
+    
+    <div id="explain">
+      <h1>What's going on here?</h1>
+      <p>In this example, after each player loads and is ready, we show the volume controls: getVideoKey, getDuration, getVideoUrl, getVideoEmbedCode. We trap each button click event with jQuery and attach a subset of code to be executed on button click. We take the correct player action method from the button's actual value and execute against the player object created.</p>
+      <p>
+      Things to note here: iframe embeds can only handle callbacks as direct functions, legacy and fallback code require the callback to be a string (IE: fn.toString()) or if no callback is detected, it will simply return the info. iframe must use the callback argument, it cannot simply return the value from the method call because of permission issues in browsers.
+      </p>
+      <p>View the source code to browse the code examples.</p>
+    </div>
+  
+  </body>
+</html>
