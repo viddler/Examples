@@ -1,0 +1,180 @@
+<!DOCTYPE html> 
+<html> 
+  <head>
+  	<title>iframe Simple Example</title>
+  	<link href="../styles.css" media="screen" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  	<script type="text/javascript" src="//cdn.static.viddler.com/js/vapi.js"></script>
+  	<script type="text/javascript">
+
+  	// Declare global variable
+  	var player = {};
+
+  	// Define some videos to use for loading and cueing
+  	var videos = ['4c57d97a','e1530e86'];
+
+  	// Define current video
+  	var next_video = 1;
+
+  	// Simple method defined to catch all callback and alert data
+  	function callback(response) {
+  		alert(response);
+  	}
+
+  	// This is for example purposes to illustrate video swap with cueVideoByKey and loadVideoByKey
+  	function find_next_video()
+  	{
+  		next_video = (next_video == 0) ? 1 : 0;
+  	}
+
+  	// Simple function for logging
+  	// Will only write to console if you have console
+  	function log(msg)
+  	{
+  		(window.console) ? console.log(msg) : null;
+  	}
+
+  	/*
+		When the document is ready get the player
+  	*/
+  	$(document).ready(function()
+		{
+			player = Viddler('viddler-4c57d97a');
+			log('Player Object >>>');
+			log(player);
+			
+			// Start your automatic callback section
+			// You do not need to list them all, just the ones you need
+			// But this example shows them all
+			// And if you have console will print the results to console
+			player.onReady(function()
+			{
+			  // Log player is ready
+			  log('Player is ready');
+
+			  // Figure what the next video would be for cueVideoByKey and loadVideoByKey example
+			  //find_next_video();
+
+			  // When the player is ready, show all the buttons to control the player
+			  // DO NOT show the buttons/controls before because you will be giving the user
+			  // the power to control something that isn't ready to be controlled.
+			  // Each button will be tied to an explicit function, there are better ways
+			  // to map this but this was created to be an easier approach to follow.
+			  // Please see other examples of how to map buttons/links automatically.
+			  // This example shows onclick events on each button rather than keeping it
+			  // clean with jQuery. Each button will call directly to a player method.
+			  $('#controls').fadeIn('fast');
+			});
+
+			player.onStateChange(function(data)
+			{
+				log('stateChange: ' + data);
+			});
+			
+			player.onError(function(data)
+			{
+				log('error: ' + data);
+			});
+			
+			player.onPlaybackQualityChange(function(data)
+			{
+				log('playbackQualityChange: ' + data);
+			});
+			
+			player.onLoginResult(function(data)
+			{
+				log('loginResult: ' + data);
+			});
+			
+			player.onSetThumbnailResult(function(data)
+			{
+				log('setThumbnailResult: ' + data);
+			});
+			
+			player.onVolumeChange(function(data)
+			{
+				log('volumeChange: ' + data);
+			});
+			
+			player.onMuteChange(function(data)
+			{
+				log('muteChange: ' + data);
+			});
+			
+			player.onSaveTagResult(function(data)
+			{
+				log('saveTagResult: ' + data);
+			});
+			
+			player.onSaveCommentResult(function(data)
+			{
+				log('saveCommentResult: ' + data);
+			});
+			
+			player.onRateCommentResult(function(data)
+			{
+				log('rateCommentResult: ' + data);
+			});
+			
+			player.onDeleteCommentResult(function(data)
+			{
+				log('deleteCommentResult: ' + data);
+			});
+		});
+  	</script>
+  </head>
+  <body>
+
+  	<!-- Player -->
+		<iframe id="viddler-4c57d97a" src="//www.viddler.com/embed/4c57d97a/?f=1&player=full&secret=34213636&enablejsapi=1" width="545" height="349" frameborder="0" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+		<!-- Controls -->
+    <div id="controls">
+      <h2>Queue</h2>
+      <p>
+        <input type="button" value="cueVideoByKey" class="next" onclick="player.cueVideoByKey(videos[next_video]);find_next_video();" />
+        <input type="button" value="loadVideoByKey" class="next" onclick="player.loadVideoByKey(videos[next_video]);find_next_video();" />
+      </p>
+      
+      <h2>Playback</h2>
+      <p>
+        <input type="button" value="playVideo" onclick="player.playVideo();" />
+        <input type="button" value="pauseVideo" onclick="player.pauseVideo();" />
+        <input type="button" value="stopVideo" onclick="player.stopVideo();" />
+        <input type="button" value="seekTo(30)" onclick="player.seekTo(30);" />
+      </p>
+      
+      <h2>Volume</h2>
+      <p>
+        <input type="button" value="mute" onclick="player.mute();" />
+        <input type="button" value="unMute" onclick="player.unMute();" />
+        <input type="button" value="Is Muted?" onclick="player.isMuted('callback');" />
+        <input type="button" value="setVolume(50)" onclick="player.setVolume(50);" />
+        <input type="button" value="setVolume(100)" onclick="player.setVolume(100);" />
+        <input type="button" value="getVolume" onclick="player.getVolume('callback');" />
+      </p>
+      
+      <h2>Size</h2>
+      <p>
+      	<input type="button" value="setSize(545,349)" onclick="player.setSize(545,308);" />
+        <input type="button" value="setSize(437,288)" onclick="player.setSize(437,247);" />
+      </p>
+      
+      <h2>Status</h2>
+      <p>
+        <input type="button" value="getVideoBytesLoaded" onclick="player.getVideoBytesLoaded('callback');" />
+        <input type="button" value="getVideoBytesTotal" onclick="player.getVideoBytesTotal('callback');" />
+        <input type="button" value="getVideoStartBytes" onclick="player.getVideoStartBytes('callback');" />
+        <input type="button" value="getPlayerState" onclick="player.getPlayerState('callback');" />
+        <input type="button" value="getCurrentTime" onclick="player.getCurrentTime('callback');" />
+      </p>
+      
+      <h2>Video Information</h2>
+      <p>
+        <input type="button" value="getDuration" onclick="player.getDuration('callback');" />
+        <input type="button" value="getVideoUrl" onclick="player.getVideoUrl('callback');" />
+        <input type="button" value="getVideoEmbedCode" onclick="player.getVideoEmbedCode('callback');" />
+      </p>
+    </div>
+	</body>
+</html>
